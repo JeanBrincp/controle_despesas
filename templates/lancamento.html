@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Lançamento de Despesas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .needs-validation .form-control:invalid {
+            border-color: #dc3545;
+        }
+        .needs-validation .form-control:valid {
+            border-color: #28a745;
+        }
+    </style>
+</head>
+<body class="container-fluid py-4">
+
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="d-flex gap-2 mb-3">
+          <a href="{{ url_for('lancamento') }}" class="btn btn-outline-primary btn-nav">Ir para Lançamento</a>
+          <a href="{{ url_for('despesas') }}" class="btn btn-outline-secondary btn-nav">Ir para Despesas</a>
+        </div>
+    </nav>
+
+    <h1>Lançar Nova Despesa</h1>
+
+    {% if sucesso %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        Despesa lançada com sucesso!
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% elif erro %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Erro ao lançar a despesa. Tente novamente.
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endif %}
+
+        <form method="POST" action="{{ url_for('lancamento') }}" class="needs-validation" novalidate>
+        
+            <div class="mb-3">
+                <label for="numero_empenho" class="form-label">Número do Empenho</label>
+                <input type="text" name="numero_empenho" id="numero_empenho" class="form-control" required>
+                <div class="invalid-feedback">Informe o Número do Empenho.</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="secretaria" class="form-label">Secretaria</label>
+                <select name="secretaria" id="secretaria" class="form-select" required>
+                    <option value="" selected disabled>Selecione a Secretaria</option>
+                    <option>GABINETE E SECRETARIA DO PREFEITO</option>
+                    <option>SECRETARIA DE PLANEJAMENTO</option>
+                    <option>GOVERNO E COMUNICACAO SOCIAL</option>
+                    <option>SECRETARIA DE DESENVOLVIMENTO SOCIAL</option>
+                    <option>INDUSTRIA, COMERCIO E DESENVOLVIMENTO ECONOMICO</option>
+                    <option>ESPORTE, CULTURA E LAZER</option>
+                    <option>PROCURADORIA GERAL</option>
+                    <option>SECRETARIA DE ADMINISTRACAO</option>
+                    <option>SECRETARIA DE EDUCACAO</option>
+                    <option>SECRETARIA DE FAZENDA</option>
+                    <option>SECRETARIA DE OBRAS E URBANISMO</option>
+                    <option>SECRETARIA DE MEIO AMBIENTE E SERVICOS URBANOS</option>
+                    <option>CONTROLADORIA GERAL DO MUNICIPIO</option>
+                </select>
+                <div class="invalid-feedback">Informe a Secretaria.</div>
+            </div>
+
+          <div class="mb-3">
+              <label for="tipo_despesa" class="form-label">Tipo de Despesa</label>
+              <select name="tipo_despesa" id="tipo_despesa" class="form-select" required>
+                  <option value="" selected disabled>Selecione o Tipo de Despesa</option>
+                  <option>Pessoal e Encargos Sociais</option>
+                  <option>Outras Despesas Correntes</option>
+                  <option>Investimentos</option>
+                  <option>Juros e Encargos da Dívida</option>
+                  <option>Amortização da Dívida</option>
+              </select>
+              <div class="invalid-feedback">Informe o Tipo de Despesa.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="credor" class="form-label">Credor</label>
+            <select name="credor" id="credor" class="form-select" required>
+              <option value="" disabled selected>Selecione o credor</option>
+              <option value="PREFEITURA MUNICIPAL DE IBIRITE">PREFEITURA MUNICIPAL DE IBIRITE</option>
+              <option value="INSS-INSTITUTO NACIONAL DE SEGURIDADE SO">INSS-INSTITUTO NACIONAL DE SEGURIDADE SO</option>
+              <option value="IPASI - INSTITUTO DE PREVIDÊNCIA SOCIAL DE IBIRITÉ">IPASI - INSTITUTO DE PREVIDÊNCIA SOCIAL DE IBIRITÉ</option>
+              <option value="VIVA CONSULTORIA ESTRATEGICA LTDA">VIVA CONSULTORIA ESTRATEGICA LTDA</option>
+              <option value="CERTISIGN CERTIFICADORA DIGITAL S.A">CERTISIGN CERTIFICADORA DIGITAL S.A</option>
+              <option value="CAMARA DE DIRIGENTES LOJISTAS DE IBIRITE">CAMARA DE DIRIGENTES LOJISTAS DE IBIRITE</option>
+              <option value="CAIXA ECONOMICA FEDERAL">CAIXA ECONOMICA FEDERAL</option>
+              <option value="TOP CENTER TECNOLOGIA LTDA.">TOP CENTER TECNOLOGIA LTDA.</option>
+              <option value="PORTAL SOLUCOES LTDA">PORTAL SOLUCOES LTDA</option>
+              <option value="METODO TELECOMUNICAÇÕES E COMERCIO LTDA">METODO TELECOMUNICAÇÕES E COMERCIO LTDA</option>
+              <option value="ENERGY SYSTEM DO BRASIL IMPORTACAO EXPORTACAO EIRELI">ENERGY SYSTEM DO BRASIL IMPORTACAO EXPORTACAO EIRELI</option>
+              <option value="EMBRAS EMPRESA BRASILEIRA DE TECNOLOGIA LIMITADA">EMBRAS EMPRESA BRASILEIRA DE TECNOLOGIA LIMITADA</option>
+              <option value="ACTCON SOLUÇÕES WEB LTDA.">ACTCON SOLUÇÕES WEB LTDA.</option>
+              <option value="LAIS JUNIA ANJOS MOURA">LAIS JUNIA ANJOS MOURA</option>
+              <option value="RM CONSULTORES & ADVOGADOS ASSOCIADOS">RM CONSULTORES & ADVOGADOS ASSOCIADOS</option>
+              <option value="MCR SISTEMAS E CONSULTORIA LTDA">MCR SISTEMAS E CONSULTORIA LTDA</option>
+              <option value="CONSORCIO CEMIG SIM GD I">CONSORCIO CEMIG SIM GD I</option>
+              <option value="COMPANHIA DE SANEAMENTO DE MINAS GERAIS">COMPANHIA DE SANEAMENTO DE MINAS GERAIS</option>
+              <option value="CEMIG DISTRIBUIÇÃO S.A">CEMIG DISTRIBUIÇÃO S.A</option>
+              <option value="SINDICATO DOS TRABALHADORES RURAIS DE IBIRITE">SINDICATO DOS TRABALHADORES RURAIS DE IBIRITE</option>
+              <option value="EMPRESA DE ASSISTÊNCIA TÉCNICA E EXTENSÃO RURAL MG- EMATER">EMPRESA DE ASSISTÊNCIA TÉCNICA E EXTENSÃO RURAL MG- EMATER</option>
+              <option value="FELIPE RANGEL RODRIGUES GOMES">FELIPE RANGEL RODRIGUES GOMES</option>
+              <option value="LNX EMPREENDIMENTOS IMOBILIARIOS SA">LNX EMPREENDIMENTOS IMOBILIARIOS SA</option>
+              <option value="VIACAO SIDON S.A.">VIACAO SIDON S.A.</option>
+              <option value="POLICIA MILITAR DO ESTADO DE MINAS GERAIS">POLICIA MILITAR DO ESTADO DE MINAS GERAIS</option>
+              <option value="JUSTINO DAVINO PERES">JUSTINO DAVINO PERES</option>
+              <option value="JULIANA THAIS DE ARAUJO">JULIANA THAIS DE ARAUJO</option>
+              <option value="EMPRESA BRASILEIRA DE CORREIOS E TELEGRAFOS">EMPRESA BRASILEIRA DE CORREIOS E TELEGRAFOS</option>
+              <option value="SERVICO FEDERAL DE PROCESSAMENTO DE DADOS (SERPRO)">SERVICO FEDERAL DE PROCESSAMENTO DE DADOS (SERPRO)</option>
+              <option value="SERPRO">SERPRO</option>
+              <option value="MOBILIBUS DESENVOLVIMENTO E CONSULTORIA DE SISTEMAS LTDA">MOBILIBUS DESENVOLVIMENTO E CONSULTORIA DE SISTEMAS LTDA</option>
+              <option value="VM SOLUCOES ESPORTIVAS EIRELI - EPP">VM SOLUCOES ESPORTIVAS EIRELI - EPP</option>
+              <option value="VERTENTES MATERIAIS ESPORTIVOS LTDA.">VERTENTES MATERIAIS ESPORTIVOS LTDA.</option>
+              <option value="ONELINE DISTRIBUIDORA E COMÉRCIO LTDA.">ONELINE DISTRIBUIDORA E COMÉRCIO LTDA.</option>
+              <option value="SERGIO MOREIRA ORLY">SERGIO MOREIRA ORLY</option>
+              <option value="EWERTON SANTOS MAIA">EWERTON SANTOS MAIA</option>
+              <option value="ADRIANO RAMOS DA SILVA">ADRIANO RAMOS DA SILVA</option>
+              <option value="MINISTÉRIO DA FAZENDA - SECRETARIA DO TE">MINISTÉRIO DA FAZENDA - SECRETARIA DO TE</option>
+              <option value="EXPOMIG ENTRETENIMENTO LTDA">EXPOMIG ENTRETENIMENTO LTDA</option>
+              <option value="ATUAL COBERTURA LOCACAO DE BARRACAS LTDA">ATUAL COBERTURA LOCACAO DE BARRACAS LTDA</option>
+              <option value="AT PRODUÇÕES E EVENTOS EIRELI">AT PRODUÇÕES E EVENTOS EIRELI</option>
+              <option value="QUANTUM ENGENHARIA E CONSULTORIA LTDA">QUANTUM ENGENHARIA E CONSULTORIA LTDA</option>
+              <option value="ONG RESGATE E VIDA">ONG RESGATE E VIDA</option>
+              <option value="Igor leonardo de oliveira ferreira novaes">Igor leonardo de oliveira ferreira novaes</option>
+              <option value="INSTITUTO EQUOTERAPIA SAMUEL - IES">INSTITUTO EQUOTERAPIA SAMUEL - IES</option>
+              <option value="INSTITUTO DE EDUCACAO CULTURAL CASA DE DAVI - IECCD">INSTITUTO DE EDUCACAO CULTURAL CASA DE DAVI - IECCD</option>
+              <option value="FOLIA DE SANTOS REIS IRMAOS UNIDOS COM FE">FOLIA DE SANTOS REIS IRMAOS UNIDOS COM FE</option>
+              <option value="CLEISON ANGELO DE SOUZA 01363324632">CLEISON ANGELO DE SOUZA 01363324632</option>
+              <option value="CLARICE DE SOUZA PEREIRA 76102688600">CLARICE DE SOUZA PEREIRA 76102688600</option>
+              <option value="CASA DE CARIDADE POCO LADE UMBANDA E CANDOMBLE">CASA DE CARIDADE POCO LADE UMBANDA E CANDOMBLE</option>
+              <option value="CASA DE ACOLHIMENTO EFATA DE IBIRITE">CASA DE ACOLHIMENTO EFATA DE IBIRITE</option>
+              <option value="ASSOCIAçãO INCLUSãO SEM FRONTEIRAS DE IBIRITé">ASSOCIAçãO INCLUSãO SEM FRONTEIRAS DE IBIRITé</option>
+              <option value="ASSOCIACAO FOLIA DE REIS NOSSA SENHORA APARECIDA">ASSOCIACAO FOLIA DE REIS NOSSA SENHORA APARECIDA</option>
+              <option value="ASSOCIACAO FOLIA DE REIS DIVINO ESPIRITO SANTO">ASSOCIACAO FOLIA DE REIS DIVINO ESPIRITO SANTO</option>
+              <option value="ASSOCIACAO FEMININA UNIDAS DO PALMARES">ASSOCIACAO FEMININA UNIDAS DO PALMARES</option>
+              <option value="ASSOCIACAO A CASA DE HELENA ANTIPOFF - ADAV">ASSOCIACAO A CASA DE HELENA ANTIPOFF - ADAV</option>
+              <option value="AMAS - ASSOCIACAO MARGARIDA ALVES DA SILVA">AMAS - ASSOCIACAO MARGARIDA ALVES DA SILVA</option>
+              <option value="ALAN FERNANDES ROCHA">ALAN FERNANDES ROCHA</option>
+              <option value="AGENCIA NACIONAL DE DESENVOLVIMENTO E RECURSOS ASSISTENCIAIS DO POVO CIGANO">AGENCIA NACIONAL DE DESENVOLVIMENTO E RECURSOS ASSISTENCIAIS DO POVO CIGANO</option>
+              <option value="48.976.041 ELIZABETH CRISTINA DIAS COSTA DALFIOR">48.976.041 ELIZABETH CRISTINA DIAS COSTA DALFIOR</option>
+              <option value="SOCIEDADE MUSICAL SENHORA DO ROSARIO DE IBIRITE/MG/SMSRI/MG">SOCIEDADE MUSICAL SENHORA DO ROSARIO DE IBIRITE/MG/SMSRI/MG</option>
+              <option value="SOCIEDADE MUSICAL SENHORA DO ROSARIO DE IBIRITE">SOCIEDADE MUSICAL SENHORA DO ROSARIO DE IBIRITE</option>
+            </select>
+          </div>
+
+            <div class="mb-3">
+              <label for="elemento" class="form-label">Elemento</label>
+              <select name="elemento" id="elemento" class="form-select" required>
+                <option value="">Selecione</option>
+                <option value="3.1.90.04.00">3.1.90.04.00 - Contratação por Tempo Determinado</option>
+                <option value="3.1.90.11.00">3.1.90.11.00 - Vencimentos e Vantagens Fixas - Pessoal Civil</option>
+                <option value="3.1.90.13.00">3.1.90.13.00 - Obrigações Patronais</option>
+                <option value="3.1.90.94.00">3.1.90.94.00 - Indenizações e Restituições Trabalhistas</option>
+                <option value="3.1.91.13.00">3.1.91.13.00 - Obrigações Patronais</option>
+                <option value="3.2.90.21.00">3.2.90.21.00 - Juros sobre a Dívida por Contrato</option>
+                <option value="3.3.50.41.00">3.3.50.41.00 - Contribuições</option>
+                <option value="3.3.50.43.00">3.3.50.43.00 - Subvenções Sociais</option>
+                <option value="3.3.70.41.00">3.3.70.41.00 - Contribuições</option>
+                <option value="3.3.90.30.00">3.3.90.30.00 - Material de Consumo</option>
+                <option value="3.3.90.32.00">3.3.90.32.00 - Material, Bem ou Serviço para Distribuição Gratuita</option>
+                <option value="3.3.90.35.00">3.3.90.35.00 - Serviços de Consultoria</option>
+                <option value="3.3.90.36.00">3.3.90.36.00 - Outros Serviços de Terceiros - Pessoa Física</option>
+                <option value="3.3.90.39.00">3.3.90.39.00 - Outros Serviços de Terceiros - Pessoa Jurídica</option>
+                <option value="3.3.90.40.00">3.3.90.40.00 - Serviços de Tecnologia da Informação e Comunicação - Pessoa Jurídica</option>
+                <option value="3.3.90.43.00">3.3.90.43.00 - Subvenções Sociais</option>
+                <option value="3.3.90.45.00">3.3.90.45.00 - Subvenções Econômicas</option>
+                <option value="3.3.90.46.00">3.3.90.46.00 - Auxílio-Alimentação</option>
+                <option value="3.3.90.47.00">3.3.90.47.00 - Obrigações Tributárias e Contributivas</option>
+                <option value="3.3.90.48.00">3.3.90.48.00 - Outros Auxílios Financeiros a Pessoas Físicas</option>
+                <option value="3.3.90.49.00">3.3.90.49.00 - Auxílio-Transporte</option>
+                <option value="3.3.90.91.00">3.3.90.91.00 - Sentenças Judiciais</option>
+                <option value="3.3.90.92.00">3.3.90.92.00 - Despesas de Exercícios Anteriores</option>
+                <option value="3.3.90.93.00">3.3.90.93.00 - Indenizações e Restituições</option>
+                <option value="4.4.90.51.00">4.4.90.51.00 - Obras e Instalações</option>
+                <option value="4.4.90.93.00">4.4.90.93.00 - Indenizações e Restituições</option>
+                <option value="4.6.90.71.00">4.6.90.71.00 - Principal da Dívida Contratual Resgatado</option>
+              </select>
+              <button type="button" class="btn btn-link p-0" onclick="alert('Abrir pop-up de cadastro de Elemento')">+ Novo Elemento</button>
+              <div class="invalid-feedback">Informe o Elemento.</div>
+            </div>
+
+
+        <div class="mb-3">
+            <label for="acao" class="form-label">Ação</label>
+              <select name="acao" id="acao" class="form-select" required>
+                <option value="">Selecione</option>
+                <option value="2001">2001 - MANUTENÇÃO INSTITUCIONAL DO GABINETE DO PREFEITO</option>
+                <option value="2002">2002 - MANUTENÇÃO INSTITUCIONAL DA SECRETARIA DE PLANEJAMENTO</option>
+                <option value="2005">2005 - MANUTENÇÃO INSTITUCIONAL  DA SECRETARIA DE GOVERNO E COMUNICAÇÃO</option>
+                <option value="2007">2007 - MANUTENÇÃO INSTITUCIONAL  DA SECRETARIA MUNICIPAL DE DESENVOLVIMENT O SOCIAL</option>
+                <option value="2017">2017 - MANUTENÇÃO INSTITUCIONAL DA SECRETARIA DE INDUSTRIA, COMÉRCIO E DES ENVOLVIMENTO ECONÔMICO</option>
+                <option value="2261">2261 - Manutenção do Programa Jovem Aprendiz</option>
+                <option value="2020">2020 - MANUTENÇÃO E GESTÃO DAS AÇÕES DE PROMOÇÃO DA PRODUÇÃO AGROPECUÁRIA</option>
+                <option value="2019">2019 - MANUTENÇÃO E GESTÃO DAS AÇÕES DE EMPREGABILIDADE E FOMENTO AO TRABA LHO</option>
+                <option value="2024">2024 - MANUTENÇÃO DO FUNDO MUNICIPAL DE TURISMO</option>
+                <option value="2256">2256 - MANUTENÇÃO DO SERVIÇO DE TRANSPORTE COLETIVO</option>
+                <option value="2023">2023 - GERENCIAMENTO E CONTROLE DO TRANSPORTE E TRÂNSITO DO MUNICÍPIO</option>
+                <option value="2025">2025 - MANUTENÇÃO INSTITUCIONAL DA SECRETARIA DE ESPORTE, CULTURA E LAZER</option>
+                <option value="2027">2027 - MANUTENÇÃO DAS AÇÕES DE INCENTIVO AO DESPORTO</option>
+                <option value="2026">2026 - APOIO AS ATIVIDADES CULTURAIS, ESPORTIVAS, ARTISTICAS E CÍVICAS</option>
+                <option value="2243">2243 - FUNDO MUNICIPAL DE CULTURA   DE IBIRITÉ</option>
+                <option value="1095">1095 - LEI ALDIR BLANC</option>
+                <option value="2032">2032 - MANUTENÇÃO INSTITUCIONAL DA PROCURADORIA GERAL</option>
+                <option value="0001">0001 - ACORDOS E PRECATÓRIOS JUDICIAIS</option>
+                <option value="2033">2033 - MANUTENÇÃO INSTITUCIONAL DA SECRETARIA DE ADMINISTRAÇÃO</option>
+                <option value="2036">2036 - MANUTENÇÃO DO ENSINO FUNDAMENTAL</option>
+                <option value="2034">2034 - MANUTENÇÃO INSTITUCIONAL DA SECRETARIA DE EDUCAÇÃO</option>
+                <option value="2037">2037 - MANUTENÇÃO DO ENSINO INFANTIL</option>
+                <option value="2035">2035 - MANUTENÇÃO DA MERENDA ESCOLAR</option>
+                <option value="1007">1007 - CONSTRUÇÃO E AQUISIÇÃO DE BENS MÓVEIS E IMÓVEIS PARA O ENSINO INFAN TIL</option>
+                <option value="2038">2038 - MANUTENÇÃO DA EDUCAÇÃO DE JOVENS E ADULTOS</option>
+                <option value="2039">2039 - MANUTENÇÃO DA EDUCAÇÃO ESPECIAL</option>
+                <option value="2040">2040 - MANUTENÇÃO INSTITUCIONAL DA SECRETARIA DE FAZENDA</option>
+                <option value="2259">2259 - PAGAMENTO DOS PARCELAMENTEOS DA DÍVIDA CONTRATADA</option>
+                <option value="0003">0003 - CONTRIBUIÇÕES PARA O PASEP</option>
+                <option value="2041">2041 - MANUTENÇÃO INSTITUCIONAL DA SECRETARIA DE OBRAS E URBANISMO</option>
+                <option value="1010">1010 - EXECUÇAO DE OBRAS DE CONTENÇÕES, DRENAGEM, URBANIZAÇÃO, MOBILIDADE E PAVIMENTAÇÃO</option>
+                <option value="2235">2235 - CONSTRUÇÃO, MANUTENÇÃO, REFORMA E AMPLIAÇÃO DE PRÉDIOS PÚBLICOS</option>
+                <option value="2042">2042 - MANUTENÇÃO INSTITUCIONAL DA SECRETARIA DE MEIO AMBIENTE E SERVIÇOS</option>
+                <option value="2043">2043 - EXECUÇÃO DOS SERVIÇOS DE MANUTENÇÃO PÚBLICA</option>
+                <option value="2219">2219 - IMPLANT.DE INFRAESTRUTURA, CONST.E MANUT.DE ÁREAS PRESSEVAÇÃO  AMBIENTAL,PRAÇAS ,PARQUES JARDINS</option>
+                <option value="1012">1012 - GESTÃO DAS AÇÕES E PROJETOS DE SANEAMENTO</option>
+                <option value="2227">2227 - MANUTENÇÃO DO FUNDO MUNICIPAL DE SANEAMENTO BÁSICO</option>
+                <option value="1013">1013 - EXTENSÃO, MELHORIA E MANUTENÇÃO DA REDE DE ILUMINAÇÃO PÚBLICA</option>
+                <option value="2225">2225 - MANUTENÇÃO INSTITUCIONAL DA CONTROLADORIA GERAL DO MUNICÍPIO</option>
+              </select>
+            <button type="button" class="btn btn-link p-0" onclick="alert('Abrir pop-up de cadastro de Ação')">+ Nova Ação</button>
+            <div class="invalid-feedback">Informe a Ação.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="data" class="form-label">Data</label>
+            <input type="date" name="data" id="data" class="form-control" required>
+            <div class="invalid-feedback">Informe a Data.</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="mes" class="form-label">Mês</label>
+            <select name="mes" id="mes" class="form-select" required>
+                <option value="">Selecione o Mês</option>
+                <option value="01">01 Janeiro</option>
+                <option value="02">02 Fevereiro</option>
+                <option value="03">03 Março</option>
+                <option value="04">04 Abril</option>
+                <option value="05">05 Maio</option>
+                <option value="06">06 Junho</option>
+                <option value="07">07 Julho</option>
+                <option value="08">08 Agosto</option>
+                <option value="09">09 Setembro</option>
+                <option value="10">10 Outubro</option>
+                <option value="11">11 Novembro</option>
+                <option value="12">12 Dezembro</option>
+            </select>
+              <div class="invalid-feedback">Informe o Mês.</div>
+          </div>
+
+
+        <div class="mb-3">
+            <label for="valor_empenhado" class="form-label">Valor Empenhado (R$)</label>
+            <input type="number" step="0.01" name="valor_empenhado" id="valor_empenhado" class="form-control" required>
+            <div class="invalid-feedback">Informe o Valor Empenhado.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="valor_empenhado_pagar" class="form-label">Valor Empenhado a Pagar (R$)</label>
+            <input type="number" step="0.01" name="valor_empenhado_pagar" id="valor_empenhado_pagar" class="form-control" required>
+            <div class="invalid-feedback">Informe o Valor Empenhado a Pagar.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="valor_liquidado" class="form-label">Valor Liquidado (R$)</label>
+            <input type="number" step="0.01" name="valor_liquidado" id="valor_liquidado" class="form-control" required>
+            <div class="invalid-feedback">Informe o Valor Liquidado.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="valor_a_liquidar" class="form-label">Valor a Liquidar (R$)</label>
+            <input type="number" step="0.01" name="valor_a_liquidar" id="valor_a_liquidar" class="form-control" required>
+            <div class="invalid-feedback">Informe o Valor a Liquidar.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="valor_liquidado_pagar" class="form-label">Valor Liquidado a Pagar (R$)</label>
+            <input type="number" step="0.01" name="valor_liquidado_pagar" id="valor_liquidado_pagar" class="form-control" required>
+            <div class="invalid-feedback">Informe o Valor Liquidado a Pagar.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="valor_baixado" class="form-label">Valor Baixado (R$)</label>
+            <input type="number" step="0.01" name="valor_baixado" id="valor_baixado" class="form-control" required>
+            <div class="invalid-feedback">Informe o Valor Baixado.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="valor_pago" class="form-label">Valor Pago (R$)</label>
+            <input type="number" step="0.01" name="valor_pago" id="valor_pago" class="form-control" required>
+            <div class="invalid-feedback">Informe o Valor Pago.</div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Lançar Despesa</button>
+        <a href="{{ url_for('despesas') }}" class="btn btn-secondary">Ver Despesas</a>
+    </form>
+
+    <script>
+        // Validação do Bootstrap
+        (() => {
+            'use strict'
+            const forms = document.querySelectorAll('.needs-validation')
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
+
+</body>
+</html>
