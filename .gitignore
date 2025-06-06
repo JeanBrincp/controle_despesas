@@ -1,1 +1,16 @@
 .vercel
+# Ignora a pasta do ambiente virtual
+venv/
+
+# Ignora arquivos compilados do Python
+__pycache__/
+*.pyc
+
+# Ignora arquivos de variáveis de ambiente
+.env
+
+# Ignora arquivos temporários do VSCode
+.vscode/
+
+# Ignora arquivos de log
+*.log

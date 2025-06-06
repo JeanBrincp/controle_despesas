@@ -1,1 +1,1 @@
-web: gunicorn app:controle_despesas
+web: python app.py
